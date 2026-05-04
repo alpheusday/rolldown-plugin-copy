@@ -45,6 +45,7 @@
         "consola": "^3.4.2",
         "es-toolkit": "^1.40.0",
         "fdir": "^6.5.0",
+        "picomatch": "^4.0.4",
         "ts-vista": "~0.2.3"
     },
     "devDependencies": {
