@@ -22,9 +22,12 @@ const copyTargets = async ({
     copySync,
     verbose,
 }: CopyTargetsOptions): Promise<void> => {
+    if (targets.length === 0) {
+        if (verbose) consola.warn("no items to copy");
+        return void 0;
+    }
+
     if (verbose) {
-        consola.warn("no items to copy");
-    } else {
         consola.info("copied:");
     }
 
