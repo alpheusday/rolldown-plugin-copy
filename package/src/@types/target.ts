@@ -4,6 +4,15 @@ import type { Format, Partial } from "ts-vista";
 
 type WriteFileData = Parameters<typeof writeFile>[1];
 
+type TargetRename = string | ((name: string, extension: string) => string);
+
+type TargetTransform =
+    | WriteFileData
+    | ((
+          contents: Buffer,
+          name: string,
+      ) => Promise<WriteFileData> | WriteFileData);
+
 type CompleteTarget = {
     /**
      * Path or glob of what to copy.
@@ -16,17 +25,19 @@ type CompleteTarget = {
     /**
      * Change destination file or directory name.
      */
-    rename:
-        | string
-        | ((name: string, extension: string, fullPath: string) => string);
+    rename: TargetRename;
     /**
      * Modify file contents.
      */
-    transform:
-        | WriteFileData
-        | ((contents: Buffer, name: string) => Promise<WriteFileData>);
+    transform: TargetTransform;
 };
 
 type Target = Format<Partial<CompleteTarget, "rename" | "transform">>;
 
-export type { CompleteTarget, Target, WriteFileData };
+export type {
+    CompleteTarget,
+    Target,
+    TargetRename,
+    TargetTransform,
+    WriteFileData,
+};

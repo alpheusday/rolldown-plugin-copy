@@ -11,17 +11,35 @@ type CompleteOptions = {
      */
     hook: AsyncPluginHooks;
     /**
-     * Array of targets to copy.
+     * Copy items once. Useful in watch mode.
      *
-     * By default, it is `[]`.
+     * By default, it is `false`.
      */
-    targets: Target[];
+    copyOnce: boolean;
+    /**
+     * Copy items synchronous.
+     *
+     * By default, it is `false`.
+     */
+    copySync: boolean;
+    /**
+     * Remove the directory structure of copied files.
+     *
+     * By default, it is `true`.
+     */
+    flatten: boolean;
     /**
      * Output copied items to console.
      *
      * By default, it is `false`.
      */
     verbose: boolean;
+    /**
+     * Array of targets to copy.
+     *
+     * By default, it is `[]`.
+     */
+    targets: Target[];
 };
 
 type Options = Format<Partial<CompleteOptions>>;
