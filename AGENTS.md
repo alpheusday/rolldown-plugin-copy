@@ -25,6 +25,10 @@ This repository is a pnpm workspace.
 
 - `test` - The test
 
+### Benchmarks
+
+- `bench` - The benchmark
+
 ## Code Standards
 
 Language:
@@ -117,6 +121,12 @@ Test:
 
 ```sh
 just test
+```
+
+Benchmark:
+
+```sh
+just bench
 ```
 
 ## What NOT to Do

@@ -14,6 +14,8 @@ pkg := "package"
 
 tst := "test"
 
+bench := "bench"
+
 vanilla := "examples/vanilla"
 express := "examples/express"
 hono := "examples/hono"
@@ -77,57 +79,9 @@ check:
     just build
     just test
 
-# Generate APIs documentation
-api:
-    cd ./{{pkg}} && {{typedoc}}
-
-# Start Vanilla example
-vanilla:
-    cd ./{{vanilla}} && {{dev}}
-
-# Build Vanilla example
-vanilla-build:
-    cd ./{{vanilla}} && {{build}}
-
-# Start Vanilla production example
-vanilla-start:
-    cd ./{{vanilla}} && {{start}}
-
-# Start Express example
-express:
-    cd ./{{express}} && {{dev}}
-
-# Build Express example
-express-build:
-    cd ./{{express}} && {{build}}
-
-# Start Express production example
-express-start:
-    cd ./{{express}} && {{start}}
-
-# Start Hono example
-hono:
-    cd ./{{hono}} && {{dev}}
-
-# Build Hono example
-hono-build:
-    cd ./{{hono}} && {{build}}
-
-# Start Hono production example
-hono-start:
-    cd ./{{hono}} && {{start}}
-
-# Start Vercel example
-vercel:
-    cd ./{{vercel}} && {{dev}}
-
-# Build Vercel example
-vercel-build:
-    cd ./{{vercel}} && {{build}}
-
-# Start Vercel production example
-vercel-start:
-    cd ./{{vercel}} && {{start}}
+# Run benchmark
+bench:
+    cd ./{{bench}} && {{vitest}} bench --run
 
 # Publish package with dev tag as dry-run
 publish-dev-try:
