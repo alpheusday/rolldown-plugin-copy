@@ -1,0 +1,15 @@
+packages:
+    - ./package
+    - ./test
+
+catalogs:
+    dev:
+        rolldown: 1.0.0-rc.18
+
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+    - "@apst/biome"
+    - "@apst/tsconfig"
+    - "@apst/tsdown"
+    - "ts-vista"
