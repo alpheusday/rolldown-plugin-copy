@@ -1,6 +1,7 @@
 import type { CompleteOptions } from "#/@types/options";
 
 const OPTIONS_DEFAULT = {
+    cwd: process.cwd(),
     hook: "buildEnd",
     copyOnce: false,
     copySync: false,

@@ -4,13 +4,23 @@ import type { Format, Partial } from "ts-vista";
 
 type WriteFileData = Parameters<typeof writeFile>[1];
 
-type TargetRename = string | ((name: string, extension: string) => string);
+type TargetRenameOptions = {
+    path: string;
+    name: string;
+    extension: string;
+};
+
+type TargetRename = string | ((options: TargetRenameOptions) => string);
+
+type TargetTransformOptions = {
+    fileName: string;
+    content: Buffer;
+};
 
 type TargetTransform =
     | WriteFileData
     | ((
-          contents: Buffer,
-          name: string,
+          options: TargetTransformOptions,
       ) => Promise<WriteFileData> | WriteFileData);
 
 type CompleteTarget = {
@@ -38,6 +48,8 @@ export type {
     CompleteTarget,
     Target,
     TargetRename,
+    TargetRenameOptions,
     TargetTransform,
+    TargetTransformOptions,
     WriteFileData,
 };

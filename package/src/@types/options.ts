@@ -5,6 +5,12 @@ import type { Target } from "#/@types/target";
 
 type CompleteOptions = {
     /**
+     * Current working directory.
+     *
+     * By default, it is `process.cwd()`.
+     */
+    cwd: string;
+    /**
      * Rolldown hook the plugin should use.
      *
      * By default, it is `buildEnd`.
