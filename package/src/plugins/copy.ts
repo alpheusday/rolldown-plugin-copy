@@ -5,11 +5,11 @@ import type { Target } from "#/@types/target";
 import type { GeneratedTarget } from "#/functions/generate";
 
 import { toMerged } from "es-toolkit";
-import { fdir as Fdir } from "fdir";
 
 import { OPTIONS_DEFAULT } from "#/const/options";
 import { copyTargets } from "#/functions/copy";
 import { generateTargets } from "#/functions/generate";
+import { resolveSourcePaths } from "#/functions/resolve";
 import { name, version } from "../../package.json";
 
 const copy = (options?: Options): Plugin => {
@@ -32,12 +32,15 @@ const copy = (options?: Options): Plugin => {
 
                 if (target === void 0) continue;
 
-                const paths: string[] = await new Fdir()
-                    .withFullPaths()
-                    .withDirs()
-                    .glob(...target.src)
-                    .crawl(opts.cwd)
-                    .withPromise();
+                const paths: string[] = await resolveSourcePaths({
+                    cwd: opts.cwd,
+                    sources:
+                        typeof target.src === "string"
+                            ? [
+                                  target.src,
+                              ]
+                            : target.src,
+                });
 
                 for (let j: number = 0; j < paths.length; j++) {
                     const src: string | undefined = paths[j];
