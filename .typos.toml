@@ -4,6 +4,7 @@ extend-exclude = [
     ".github/",
     "__MACOSX/",
     ".DS_Store",
+    ".agents",
     "node_modules/",
     "dist/",
     "apis/",
