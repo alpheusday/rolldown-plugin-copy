@@ -1,0 +1,23 @@
+version: 2
+updates:
+    - package-ecosystem: "npm"
+      directory: "/"
+      schedule:
+          interval: "daily"
+          time: "00:00"
+          timezone: "Etc/UTC"
+      cooldown:
+          default-days: 1
+          include:
+              - "*"
+      commit-message:
+          prefix: "chore"
+      ignore:
+          # dep
+          - dependency-name: "consola"
+          - dependency-name: "es-toolkit"
+          - dependency-name: "tinyglobby"
+          - dependency-name: "ts-vista"
+          # peer
+          - dependency-name: "@types/node"
+          - dependency-name: "rolldown"
