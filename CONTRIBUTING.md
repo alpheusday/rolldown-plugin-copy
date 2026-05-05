@@ -54,12 +54,28 @@ This command will build the code.
 just build
 ```
 
+### Testing
+
+This command will test the code.
+
+```sh
+just test
+```
+
 ### Checking
 
 This command will do linting, formatting and building.
 
 ```sh
 just check
+```
+
+### Benchmarking
+
+This command will benchmark the code.
+
+```sh
+just bench
 ```
 
 ### Cleaning
