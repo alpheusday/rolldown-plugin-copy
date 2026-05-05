@@ -17,8 +17,19 @@ export default defineConfig({
         copy({
             targets: [
                 {
-                    src: "./static/**/*",
-                    dest: "./dist/static",
+                    src: "./public/index.html",
+                    dest: "./dist/public",
+                },
+                {
+                    src: [
+                        "./public/static/css/light.css",
+                        "./public/static/css/dark.css",
+                    ],
+                    dest: "./dist/public/static/css",
+                },
+                {
+                    src: "./public/static/images/**/*",
+                    dest: "./dist/public/static/images",
                 },
             ],
         }),
