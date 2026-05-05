@@ -65,6 +65,15 @@ importers:
         specifier: workspace:*
         version: link:../../package
 
+  examples/rename:
+    dependencies:
+      rolldown:
+        specifier: catalog:dev
+        version: 1.0.0-rc.18
+      rolldown-plugin-copy:
+        specifier: workspace:*
+        version: link:../../package
+
   examples/transform:
     dependencies:
       rolldown:

@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "scripts": {
+        "build": "rolldown --config ./rolldown.config.ts"
+    },
+    "dependencies": {
+        "rolldown": "catalog:dev",
+        "rolldown-plugin-copy": "workspace:*"
+    }
+}
