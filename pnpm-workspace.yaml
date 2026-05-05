@@ -2,6 +2,7 @@ packages:
     - ./package
     - ./test
     - ./bench
+    - ./examples/*
 
 catalogs:
     dep:
