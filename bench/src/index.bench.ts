@@ -12,6 +12,7 @@ import {
     createRollupCopyOptions,
 } from "#/options/copy";
 import { runBuildEnd } from "#/plugins/build-end";
+import { runGenerateBundle } from "#/plugins/generate-bundle";
 
 let project: BenchProject | undefined;
 
@@ -45,7 +46,7 @@ describe("copy", (): void => {
                 createRolldownCopyOptions(benchProject),
             ) as unknown as BenchPlugin;
 
-            await runBuildEnd(plugin);
+            await runGenerateBundle(plugin);
         },
         BENCH_OPTIONS,
     );

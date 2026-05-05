@@ -2,6 +2,7 @@ type BenchHook = () => Promise<void> | void;
 
 type BenchPlugin = {
     buildEnd?: BenchHook;
+    generateBundle?: BenchHook;
 };
 
 type RollupTarget = {
