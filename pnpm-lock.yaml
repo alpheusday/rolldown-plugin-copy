@@ -91,12 +91,9 @@ importers:
       es-toolkit:
         specifier: ^1.40.0
         version: 1.46.1
-      fdir:
-        specifier: ^6.5.0
-        version: 6.5.0(picomatch@4.0.4)
-      picomatch:
-        specifier: ^4.0.3
-        version: 4.0.4
+      tinyglobby:
+        specifier: ~0.2.16
+        version: 0.2.16
       ts-vista:
         specifier: ~0.2.3
         version: 0.2.3

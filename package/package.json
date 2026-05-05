@@ -44,8 +44,7 @@
     "dependencies": {
         "consola": "^3.4.0",
         "es-toolkit": "^1.40.0",
-        "fdir": "^6.5.0",
-        "picomatch": "^4.0.3",
+        "tinyglobby": "~0.2.16",
         "ts-vista": "~0.2.3"
     },
     "devDependencies": {

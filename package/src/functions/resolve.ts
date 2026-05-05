@@ -1,7 +1,7 @@
 import * as Fsp from "node:fs/promises";
 import * as Path from "node:path";
 
-import { fdir as Fdir } from "fdir";
+import { glob } from "tinyglobby";
 
 type ResolveSourcePathsOptions = {
     cwd: string;
@@ -58,23 +58,11 @@ const resolveGlobSourcePaths = async (
         patterns.push(normalizeGlobSource(cwd, source));
     }
 
-    const relativePaths: string[] = await new Fdir()
-        .withRelativePaths()
-        .glob(...patterns)
-        .crawl(cwd)
-        .withPromise();
-
-    const paths: string[] = [];
-
-    for (let i: number = 0; i < relativePaths.length; i++) {
-        const relativePath: string | undefined = relativePaths[i];
-
-        if (relativePath === void 0) continue;
-
-        paths.push(Path.resolve(cwd, relativePath));
-    }
-
-    return paths;
+    return await glob(patterns, {
+        absolute: true,
+        cwd,
+        onlyFiles: true,
+    });
 };
 
 const resolveSourcePaths = async ({

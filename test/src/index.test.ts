@@ -181,4 +181,35 @@ describe("programmatic bundler usage", (): void => {
             await removeTestProject(project);
         }
     });
+
+    test("Rolldown excludes negated glob targets", async (): Promise<void> => {
+        const project: TestProject = await createTestProject("negated-glob");
+        const copiedLogo: string = Path.join(project.assetsDir, "logo.svg");
+        const copiedReadme: string = Path.join(project.assetsDir, "readme.txt");
+        const options: Options = {
+            cwd: project.root,
+            flatten: true,
+            targets: [
+                {
+                    src: [
+                        "assets/static/**/*",
+                        "!assets/static/nested/**",
+                    ],
+                    dest: project.assetsDir,
+                },
+            ],
+        };
+
+        try {
+            await runRolldownBuild(project, options);
+
+            await expect(Fsp.readFile(copiedLogo, "utf8")).resolves.toBe(
+                "<svg />\n",
+            );
+
+            await expect(Fsp.access(copiedReadme)).rejects.toThrow();
+        } finally {
+            await removeTestProject(project);
+        }
+    });
 });
