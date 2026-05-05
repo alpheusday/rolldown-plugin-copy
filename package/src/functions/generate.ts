@@ -1,3 +1,5 @@
+import type * as Fs from "node:fs";
+
 import type { Target, WriteFileData } from "#/@types/target";
 
 import * as Fsp from "node:fs/promises";
@@ -36,7 +38,10 @@ type GenerateTargetsOptions = {
     flatten: boolean;
 };
 
+type GeneratedTargetKind = "file" | "directory";
+
 type GeneratedTarget = {
+    kind: GeneratedTargetKind;
     src: string;
     dest: string;
     renamed: boolean;
@@ -50,7 +55,9 @@ const generateTargets = async ({
     target,
     flatten,
 }: GenerateTargetsOptions): Promise<GeneratedTarget[]> => {
-    if (target.transform && (await Fsp.stat(src)).isDirectory()) return [];
+    const stats: Fs.Stats = await Fsp.stat(src);
+
+    if (target.transform && stats.isDirectory()) return [];
 
     const parsed = Path.parse(src);
 
@@ -84,6 +91,7 @@ const generateTargets = async ({
             : parsed.base;
 
         result.push({
+            kind: stats.isFile() ? "file" : "directory",
             src,
             dest: Path.join(destDir, destPath),
             renamed: Boolean(target.rename),
@@ -103,5 +111,5 @@ const generateTargets = async ({
     return result;
 };
 
-export type { GeneratedTarget, GenerateTargetsOptions };
+export type { GeneratedTarget, GeneratedTargetKind, GenerateTargetsOptions };
 export { generateTargets };
