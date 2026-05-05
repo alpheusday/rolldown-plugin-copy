@@ -1,6 +1,8 @@
+import type { ConsolaInstance } from "consola";
+
 import { createConsola } from "consola";
 
-const log = createConsola({
+const log: ConsolaInstance = createConsola({
     formatOptions: {
         date: false,
     },
