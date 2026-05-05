@@ -5,7 +5,7 @@ const OPTIONS_DEFAULT = {
     hook: "generateBundle",
     copyOnce: false,
     copySync: false,
-    flatten: true,
+    flatten: false,
     verbose: false,
     targets: [],
 } as const satisfies CompleteOptions;

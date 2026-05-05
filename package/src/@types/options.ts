@@ -31,7 +31,7 @@ type CompleteOptions = {
     /**
      * Remove the directory structure of copied files.
      *
-     * By default, it is `true`.
+     * By default, it is `false`.
      */
     flatten: boolean;
     /**
