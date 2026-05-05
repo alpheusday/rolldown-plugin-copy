@@ -4,32 +4,27 @@ import * as Fs from "node:fs";
 import * as Fsp from "node:fs/promises";
 import * as Path from "node:path";
 
-import { consola } from "consola";
+import { log } from "#/configs/log";
 
 type CopyTargetsOptions = {
+    cwd: string;
     targets: GeneratedTarget[];
     copySync: boolean;
     verbose: boolean;
 };
 
-const flagKeys = [
-    "renamed",
-    "transformed",
-];
-
 const copyTargets = async ({
+    cwd,
     targets,
     copySync,
     verbose,
 }: CopyTargetsOptions): Promise<void> => {
     if (targets.length === 0) {
-        if (verbose) consola.warn("no items to copy");
+        if (verbose) log.success("no items to copy");
         return void 0;
     }
 
-    if (verbose) {
-        consola.info("copied:");
-    }
+    const logs: string[] = [];
 
     for (let i: number = 0; i < targets.length; i++) {
         const target: GeneratedTarget | undefined = targets[i];
@@ -53,18 +48,28 @@ const copyTargets = async ({
         }
 
         if (verbose) {
-            let message: string = `${target.src} → ${target.dest}`;
+            let message: string = `${Path.relative(cwd, target.src)} → ${target.dest}`;
 
-            const flags: string[] = Object.entries(target)
-                .filter(([key, value]) => flagKeys.includes(key) && value)
-                .map(([key]) => key.charAt(0).toUpperCase());
+            const flags: string[] = [];
+
+            if (target.renamed) flags.push("R");
+
+            if (target.transformed) flags.push("T");
 
             if (flags.length > 0) {
-                message += ` [${flags.join(" ")}]`;
+                message += ` [${flags.join(",")}]`;
             }
 
-            consola.info(message);
+            logs.push(message);
         }
+    }
+
+    if (verbose) {
+        for (let i: number = 0; i < logs.length; i++) {
+            log.success(logs[i]);
+        }
+
+        console.log("");
     }
 };
 

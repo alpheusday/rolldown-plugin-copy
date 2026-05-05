@@ -59,6 +59,7 @@ const copy = (options?: Options): Plugin => {
             }
 
             await copyTargets({
+                cwd: opts.cwd,
                 targets,
                 copySync: opts.copySync,
                 verbose: opts.verbose,
