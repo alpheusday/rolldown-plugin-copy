@@ -13,7 +13,7 @@ type CompleteOptions = {
     /**
      * Rolldown hook the plugin should use.
      *
-     * By default, it is `buildEnd`.
+     * By default, it is `generateBundle`.
      */
     hook: AsyncPluginHooks;
     /**
