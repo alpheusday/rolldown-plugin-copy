@@ -5,7 +5,32 @@ import * as Path from "node:path";
 
 import { renameTarget } from "./rename";
 
+type ResolveDestDirOptions = {
+    cwd: string;
+    src: string;
+    dest: string;
+    flatten: boolean;
+};
+
+const resolveDestDir = ({
+    cwd,
+    src,
+    dest,
+    flatten,
+}: ResolveDestDirOptions): string => {
+    if (flatten) return dest;
+
+    const relativeDir: string = Path.dirname(Path.relative(cwd, src));
+
+    if (relativeDir === ".") return dest;
+
+    const relativeDirParts: string[] = relativeDir.split(Path.sep);
+
+    return Path.join(dest, ...relativeDirParts.slice(1));
+};
+
 type GenerateTargetsOptions = {
+    cwd: string;
     src: string;
     target: Target;
     flatten: boolean;
@@ -20,6 +45,7 @@ type GeneratedTarget = {
 };
 
 const generateTargets = async ({
+    cwd,
     src,
     target,
     flatten,
@@ -42,10 +68,12 @@ const generateTargets = async ({
 
         if (dest === void 0) continue;
 
-        const destDir: string =
-            flatten || !parsed.dir
-                ? dest
-                : parsed.dir.replace(parsed.dir.split("/").at(0) ?? "", dest);
+        const destDir: string = resolveDestDir({
+            cwd,
+            src,
+            dest,
+            flatten,
+        });
 
         const destPath: string = target.rename
             ? renameTarget({

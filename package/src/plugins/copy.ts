@@ -48,6 +48,7 @@ const copy = (options?: Options): Plugin => {
                     if (src === void 0) continue;
 
                     const tg: GeneratedTarget[] = await generateTargets({
+                        cwd: opts.cwd,
                         src,
                         target,
                         flatten: opts.flatten,

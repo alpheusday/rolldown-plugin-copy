@@ -6,6 +6,7 @@ type CopyHook = NonNullable<Options["hook"]>;
 
 const createCopyOptions = (project: TestProject, hook?: CopyHook): Options => ({
     cwd: project.root,
+    flatten: true,
     ...(hook && {
         hook,
     }),
