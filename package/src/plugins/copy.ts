@@ -12,6 +12,29 @@ import { generateTargets } from "#/functions/generate";
 import { resolveSourcePaths } from "#/functions/resolve";
 import { name, version } from "../../package.json";
 
+/**
+ * A utility to copy files and directories.
+ *
+ * ### Example
+ *
+ * ```ts
+ * import { defineConfig } from "rolldown";
+ * import { copy } from "rolldown-plugin-copy";
+ *
+ * export default defineConfig({
+ *     plugins: [
+ *         copy({
+ *             targets: [
+ *                 {
+ *                     src: "./public/static/css/index.css",
+ *                     dest: "./dist/public/static/css",
+ *                 },
+ *             ],
+ *         }),
+ *     ],
+ * });
+ * ```
+ */
 const copy = (options?: Options): Plugin => {
     const opts: CompleteOptions = toMerged(OPTIONS_DEFAULT, options ?? {});
 

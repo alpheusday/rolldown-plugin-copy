@@ -48,6 +48,9 @@ type CompleteOptions = {
     targets: Target[];
 };
 
+/**
+ * Options for `copy` plugin.
+ */
 type Options = Format<Partial<CompleteOptions>>;
 
 export type { CompleteOptions, Options };
