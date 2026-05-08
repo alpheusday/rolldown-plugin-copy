@@ -4,11 +4,16 @@ packages:
     - ./bench
     - ./examples/*
 
+autoInstallPeers: false
+strictPeerDependencies: false
+
 catalogs:
     dep:
         vitest: ^4.1.5
     dev:
-        rolldown: 1.0.0-rc.18
+        rolldown: 1.0.0
+    peer:
+        rolldown: ^1.0.0
 
 minimumReleaseAge: 1440
 

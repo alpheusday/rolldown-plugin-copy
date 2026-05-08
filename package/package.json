@@ -52,10 +52,14 @@
         "rolldown": "catalog:dev"
     },
     "peerDependencies": {
-        "@types/node": "*"
+        "@types/node": "*",
+        "rolldown": "catalog:peer"
     },
     "peerDependenciesMeta": {
         "@types/node": {
+            "optional": true
+        },
+        "rolldown": {
             "optional": true
         }
     },
