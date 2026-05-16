@@ -1,3 +1,4 @@
+import type { CopyEventListener } from "#/@types/event";
 import type { GeneratedTarget } from "#/functions/generate";
 
 import * as Fs from "node:fs";
@@ -145,11 +146,27 @@ const buildLogMessage = ({ cwd, target }: BuildLogMessageOptions): string => {
     return message;
 };
 
+const emitCopy = async (
+    target: GeneratedTarget,
+    onCopy: CopyEventListener | undefined,
+): Promise<void> => {
+    if (onCopy !== void 0) {
+        await onCopy({
+            kind: target.kind,
+            src: target.src,
+            dest: target.dest,
+            renamed: target.renamed,
+            transformed: target.transformed,
+        });
+    }
+};
+
 type CopyTargetsOptions = {
     cwd: string;
     targets: GeneratedTarget[];
     copySync: boolean;
     verbose: boolean;
+    onCopy: CopyEventListener | undefined;
 };
 
 const copyTargets = async ({
@@ -157,6 +174,7 @@ const copyTargets = async ({
     targets,
     copySync,
     verbose,
+    onCopy,
 }: CopyTargetsOptions): Promise<void> => {
     if (targets.length === 0) {
         if (verbose) {
@@ -181,6 +199,8 @@ const copyTargets = async ({
                             target,
                             copySync,
                         });
+
+                        await emitCopy(target, onCopy);
 
                         return verbose
                             ? buildLogMessage({
@@ -212,6 +232,8 @@ const copyTargets = async ({
                 target,
                 copySync,
             });
+
+            await emitCopy(target, onCopy);
 
             if (verbose) {
                 logs.push(

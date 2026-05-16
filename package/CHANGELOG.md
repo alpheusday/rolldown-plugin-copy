@@ -1,5 +1,9 @@
 ## Next
 
+### What's New
+
+- add `onCopy` listener
+
 ### What's Changed
 
 - add newline for verbose output

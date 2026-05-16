@@ -7,6 +7,7 @@ const OPTIONS_DEFAULT = {
     copySync: false,
     flatten: false,
     verbose: false,
+    onCopy: void 0,
     targets: [],
 } as const satisfies CompleteOptions;
 

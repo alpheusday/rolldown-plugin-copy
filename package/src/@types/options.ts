@@ -1,6 +1,7 @@
 import type { AsyncPluginHooks } from "rolldown";
 import type { Format, Partial } from "ts-vista";
 
+import type { CopyEventListener } from "#/@types/event";
 import type { Target } from "#/@types/target";
 
 type CompleteOptions = {
@@ -40,6 +41,10 @@ type CompleteOptions = {
      * By default, it is `false`.
      */
     verbose: boolean;
+    /**
+     * Listener for copy events. Called for each copied item.
+     */
+    onCopy: CopyEventListener | undefined;
     /**
      * Array of targets to copy.
      *
