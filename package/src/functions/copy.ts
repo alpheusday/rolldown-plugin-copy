@@ -160,6 +160,7 @@ const copyTargets = async ({
 }: CopyTargetsOptions): Promise<void> => {
     if (targets.length === 0) {
         if (verbose) {
+            console.log("");
             log.success("no items to copy");
             console.log("");
         }
@@ -224,6 +225,8 @@ const copyTargets = async ({
     }
 
     if (verbose) {
+        console.log("");
+
         for (let i: number = 0; i < logs.length; i++) {
             log.success(logs[i]);
         }

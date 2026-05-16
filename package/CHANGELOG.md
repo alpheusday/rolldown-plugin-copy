@@ -1,3 +1,9 @@
+## Next
+
+### What's Changed
+
+- add newline for verbose output
+
 ## 0.1.1 (2026-05-08)
 
 ### What's New
