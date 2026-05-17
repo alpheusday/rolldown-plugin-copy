@@ -1,6 +1,6 @@
 import type * as Fs from "node:fs";
 
-import type { CopyTargetKind } from "#/@types/event";
+import type { ResolvedTargetKind } from "#/@types/event";
 import type { Target, WriteFileData } from "#/@types/target";
 
 import * as Fsp from "node:fs/promises";
@@ -39,8 +39,10 @@ type GenerateTargetsOptions = {
     flatten: boolean;
 };
 
+type GeneratedTargetKind = ResolvedTargetKind;
+
 type GeneratedTarget = {
-    kind: CopyTargetKind;
+    kind: GeneratedTargetKind;
     src: string;
     dest: string;
     renamed: boolean;
@@ -110,5 +112,5 @@ const generateTargets = async ({
     return result;
 };
 
-export type { GeneratedTarget, GenerateTargetsOptions };
+export type { GeneratedTarget, GeneratedTargetKind, GenerateTargetsOptions };
 export { generateTargets };

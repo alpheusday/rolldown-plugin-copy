@@ -1,7 +1,11 @@
 import type { AsyncPluginHooks } from "rolldown";
 import type { Format, Partial } from "ts-vista";
 
-import type { CopyEventListener } from "#/@types/event";
+import type {
+    CopyEndEventListener,
+    CopyEventListener,
+    CopyStartEventListener,
+} from "#/@types/event";
 import type { Target } from "#/@types/target";
 
 type CompleteOptions = {
@@ -17,6 +21,12 @@ type CompleteOptions = {
      * By default, it is `generateBundle`.
      */
     hook: AsyncPluginHooks;
+    /**
+     * Array of targets to copy.
+     *
+     * By default, it is `[]`.
+     */
+    targets: Target[];
     /**
      * Copy items once. Useful in watch mode.
      *
@@ -42,15 +52,17 @@ type CompleteOptions = {
      */
     verbose: boolean;
     /**
+     * Listener called before any copy begins.
+     */
+    onStart: CopyStartEventListener | undefined;
+    /**
      * Listener for copy events. Called for each copied item.
      */
     onCopy: CopyEventListener | undefined;
     /**
-     * Array of targets to copy.
-     *
-     * By default, it is `[]`.
+     * Listener called after all copies complete.
      */
-    targets: Target[];
+    onEnd: CopyEndEventListener | undefined;
 };
 
 /**

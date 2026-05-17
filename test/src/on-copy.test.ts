@@ -7,7 +7,7 @@ import { createTestProject, removeTestProject } from "./fixtures/project";
 
 describe("onCopy listener", (): void => {
     test("receives events for each copied item", async (): Promise<void> => {
-        const project = await createTestProject("onlog-basic");
+        const project = await createTestProject("oncopy-basic");
         const events: CopyEvent[] = [];
         const options: Options = {
             cwd: project.root,
@@ -44,23 +44,23 @@ describe("onCopy listener", (): void => {
             expect(events.length).toBeGreaterThanOrEqual(1);
 
             const renamedEvent: CopyEvent | undefined = events.find(
-                (e: CopyEvent): boolean => e.renamed,
+                (e: CopyEvent): boolean => e.target.renamed,
             );
             expect(renamedEvent).toBeDefined();
-            expect(renamedEvent?.src).toContain("index.html");
-            expect(renamedEvent?.dest).toContain("index.copied.html");
-            expect(renamedEvent?.transformed).toBe(true);
+            expect(renamedEvent?.target.src).toContain("index.html");
+            expect(renamedEvent?.target.dest).toContain("index.copied.html");
+            expect(renamedEvent?.target.transformed).toBe(true);
 
             const transformedEvent: CopyEvent | undefined = events.find(
-                (e: CopyEvent): boolean => e.transformed,
+                (e: CopyEvent): boolean => e.target.transformed,
             );
             expect(transformedEvent).toBeDefined();
 
             for (const event of events) {
-                expect(event).toHaveProperty("src");
-                expect(event).toHaveProperty("dest");
-                expect(typeof event.renamed).toBe("boolean");
-                expect(typeof event.transformed).toBe("boolean");
+                expect(event.target).toHaveProperty("src");
+                expect(event.target).toHaveProperty("dest");
+                expect(typeof event.target.renamed).toBe("boolean");
+                expect(typeof event.target.transformed).toBe("boolean");
             }
         } finally {
             await removeTestProject(project);
@@ -68,12 +68,11 @@ describe("onCopy listener", (): void => {
     });
 
     test("fires without verbose enabled", async (): Promise<void> => {
-        const project = await createTestProject("onlog-no-verbose");
+        const project = await createTestProject("oncopy-no-verbose");
         const events: CopyEvent[] = [];
         const options: Options = {
             cwd: project.root,
             flatten: true,
-            verbose: false,
             targets: [
                 {
                     src: "assets/static/logo.svg",
@@ -89,22 +88,21 @@ describe("onCopy listener", (): void => {
             await runRolldownBuild(project, options);
 
             expect(events.length).toBe(1);
-            expect(events[0].src).toContain("logo.svg");
-            expect(events[0].dest).toContain("logo.svg");
-            expect(events[0].renamed).toBe(false);
-            expect(events[0].transformed).toBe(false);
+            expect(events[0].target.src).toContain("logo.svg");
+            expect(events[0].target.dest).toContain("logo.svg");
+            expect(events[0].target.renamed).toBe(false);
+            expect(events[0].target.transformed).toBe(false);
         } finally {
             await removeTestProject(project);
         }
     });
 
     test("works alongside verbose", async (): Promise<void> => {
-        const project = await createTestProject("onlog-verbose");
+        const project = await createTestProject("oncopy-verbose");
         const events: CopyEvent[] = [];
         const options: Options = {
             cwd: project.root,
             flatten: true,
-            verbose: true,
             targets: [
                 {
                     src: "assets/static/logo.svg",
@@ -120,14 +118,14 @@ describe("onCopy listener", (): void => {
             await runRolldownBuild(project, options);
 
             expect(events.length).toBe(1);
-            expect(events[0].src).toContain("logo.svg");
+            expect(events[0].target.src).toContain("logo.svg");
         } finally {
             await removeTestProject(project);
         }
     });
 
     test("does not fire when there are no targets", async (): Promise<void> => {
-        const project = await createTestProject("onlog-no-targets");
+        const project = await createTestProject("oncopy-no-targets");
         const events: CopyEvent[] = [];
         const options: Options = {
             cwd: project.root,

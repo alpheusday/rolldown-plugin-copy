@@ -86,6 +86,8 @@ const copy = (options?: Options): Plugin => {
                 targets,
                 copySync: opts.copySync,
                 verbose: opts.verbose,
+                onStart: opts.onStart,
+                onEnd: opts.onEnd,
                 onCopy: opts.onCopy,
             });
 

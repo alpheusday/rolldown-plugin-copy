@@ -2,7 +2,7 @@
 
 ### What's New
 
-- add `onCopy` listener
+- add `onStart`, `onCopy`, and `onEnd` listener
 
 ### What's Changed
 

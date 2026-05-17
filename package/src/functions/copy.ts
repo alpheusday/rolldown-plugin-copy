@@ -1,4 +1,8 @@
-import type { CopyEventListener } from "#/@types/event";
+import type {
+    CopyEndEventListener,
+    CopyEventListener,
+    CopyStartEventListener,
+} from "#/@types/event";
 import type { GeneratedTarget } from "#/functions/generate";
 
 import * as Fs from "node:fs";
@@ -146,22 +150,26 @@ const buildLogMessage = ({ cwd, target }: BuildLogMessageOptions): string => {
     return message;
 };
 
-const emitCopy = async (
-    target: GeneratedTarget,
-    onCopy: CopyEventListener | undefined,
-): Promise<void> => {
+type EmitCopyOptions = {
+    onCopy: CopyEventListener | undefined;
+    target: GeneratedTarget;
+};
+
+const emitCopy = async ({ onCopy, target }: EmitCopyOptions): Promise<void> => {
     if (onCopy !== void 0) {
         await onCopy({
-            kind: target.kind,
-            src: target.src,
-            dest: target.dest,
-            renamed: target.renamed,
-            transformed: target.transformed,
+            target: {
+                kind: target.kind,
+                src: target.src,
+                dest: target.dest,
+                renamed: target.renamed,
+                transformed: target.transformed,
+            },
         });
     }
 };
 
-type CopyTargetsOptions = {
+type TryCopyTargetsOptions = {
     cwd: string;
     targets: GeneratedTarget[];
     copySync: boolean;
@@ -169,13 +177,13 @@ type CopyTargetsOptions = {
     onCopy: CopyEventListener | undefined;
 };
 
-const copyTargets = async ({
+const tryCopyTargets = async ({
     cwd,
     targets,
     copySync,
     verbose,
     onCopy,
-}: CopyTargetsOptions): Promise<void> => {
+}: TryCopyTargetsOptions): Promise<void> => {
     if (targets.length === 0) {
         if (verbose) {
             console.log("");
@@ -200,7 +208,10 @@ const copyTargets = async ({
                             copySync,
                         });
 
-                        await emitCopy(target, onCopy);
+                        await emitCopy({
+                            onCopy,
+                            target,
+                        });
 
                         return verbose
                             ? buildLogMessage({
@@ -233,7 +244,10 @@ const copyTargets = async ({
                 copySync,
             });
 
-            await emitCopy(target, onCopy);
+            await emitCopy({
+                onCopy,
+                target,
+            });
 
             if (verbose) {
                 logs.push(
@@ -254,6 +268,37 @@ const copyTargets = async ({
         }
 
         console.log("");
+    }
+};
+
+type CopyTargetsOptions = TryCopyTargetsOptions & {
+    onStart: CopyStartEventListener | undefined;
+    onEnd: CopyEndEventListener | undefined;
+};
+
+const copyTargets = async (options: CopyTargetsOptions): Promise<void> => {
+    const { onStart, onEnd, targets } = options;
+
+    let error: unknown = void 0;
+
+    try {
+        if (onStart !== void 0) {
+            await onStart({
+                cwd: options.cwd,
+                targets,
+            });
+        }
+
+        await tryCopyTargets(options);
+    } catch (err: unknown) {
+        error = err;
+    } finally {
+        if (onEnd !== void 0) {
+            await onEnd({
+                cwd: options.cwd,
+                error,
+            });
+        }
     }
 };
 

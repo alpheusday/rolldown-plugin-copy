@@ -3,9 +3,14 @@ import { copy } from "#/plugins/copy";
 export default copy;
 
 export type {
+    CopyEndEvent,
+    CopyEndEventListener,
     CopyEvent,
     CopyEventListener,
-    CopyTargetKind,
+    CopyStartEvent,
+    CopyStartEventListener,
+    ResolvedTarget,
+    ResolvedTargetKind,
 } from "#/@types/event";
 export type { Options } from "#/@types/options";
 export type {
