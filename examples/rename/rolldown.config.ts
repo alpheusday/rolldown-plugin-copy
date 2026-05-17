@@ -8,7 +8,6 @@ export default defineConfig({
     },
     plugins: [
         copy({
-            verbose: true,
             targets: [
                 {
                     src: "./public/**/*",
@@ -18,6 +17,7 @@ export default defineConfig({
                     },
                 },
             ],
+            verbose: true,
         }),
     ],
 });

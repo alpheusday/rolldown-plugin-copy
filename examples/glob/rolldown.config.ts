@@ -8,13 +8,13 @@ export default defineConfig({
     },
     plugins: [
         copy({
-            verbose: true,
             targets: [
                 {
                     src: "./public/**/*",
                     dest: "./dist/public",
                 },
             ],
+            verbose: true,
         }),
     ],
 });
