@@ -61,7 +61,7 @@ type CopyEvent = {
 /**
  * Listener for copy event.
  */
-type CopyEventListener = (context: CopyEvent) => void | Promise<void>;
+type CopyEventListener = (event: CopyEvent) => void | Promise<void>;
 
 /**
  * Copy end event.
@@ -80,7 +80,7 @@ type CopyEndEvent = {
 /**
  * Listener for copy end event.
  */
-type CopyEndEventListener = (context: CopyEndEvent) => void | Promise<void>;
+type CopyEndEventListener = (event: CopyEndEvent) => void | Promise<void>;
 
 export type {
     CopyEndEvent,
