@@ -300,6 +300,8 @@ const copyTargets = async (options: CopyTargetsOptions): Promise<void> => {
             });
         }
     }
+
+    if (error !== void 0) throw error;
 };
 
 export type { CopyTargetsOptions };
