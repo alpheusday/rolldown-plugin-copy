@@ -46,8 +46,6 @@ const copy = (options?: Options): Plugin => {
         [opts.hook]: async (): Promise<void> => {
             if (opts.copyOnce === true && copied === true) return void 0;
 
-            if (opts.targets.length === 0) return void 0;
-
             const targets: GeneratedTarget[] = [];
 
             for (let i: number = 0; i < opts.targets.length; i++) {

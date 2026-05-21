@@ -38,7 +38,7 @@ describe("onEnd listener", (): void => {
         }
     });
 
-    test("does not fire when there are no targets", async (): Promise<void> => {
+    test("fires with no error when there are no targets", async (): Promise<void> => {
         const project = await createTestProject("onend-no-targets");
         const events: CopyEndEvent[] = [];
         const options: Options = {
@@ -52,7 +52,9 @@ describe("onEnd listener", (): void => {
         try {
             await runRolldownBuild(project, options);
 
-            expect(events.length).toBe(0);
+            expect(events.length).toBe(1);
+            expect(events[0].cwd).toBe(project.root);
+            expect(events[0].error).toBeUndefined();
         } finally {
             await removeTestProject(project);
         }

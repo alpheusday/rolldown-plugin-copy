@@ -74,7 +74,7 @@ describe("onStart listener", (): void => {
         }
     });
 
-    test("does not fire when there are no targets", async (): Promise<void> => {
+    test("fires with empty targets when there are no targets", async (): Promise<void> => {
         const project = await createTestProject("onstart-no-targets");
         const events: CopyStartEvent[] = [];
         const options: Options = {
@@ -88,7 +88,9 @@ describe("onStart listener", (): void => {
         try {
             await runRolldownBuild(project, options);
 
-            expect(events.length).toBe(0);
+            expect(events.length).toBe(1);
+            expect(events[0].cwd).toBe(project.root);
+            expect(events[0].targets.length).toBe(0);
         } finally {
             await removeTestProject(project);
         }
