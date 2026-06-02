@@ -6,10 +6,10 @@ Partially compatible with [rollup-plugin-copy](https://github.com/vladshcherbin/
 
 ## Usage
 
-Add the plugin into the Vite config:
+Add the plugin into the Rolldown config:
 
 ```ts
-import { defineConfig } from "vite";
+import { defineConfig } from "rolldown";
 import { copy } from "rolldown-plugin-copy";
 
 export default defineConfig({

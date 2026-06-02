@@ -27,10 +27,10 @@ bun add rolldown-plugin-copy
 
 ## Usage
 
-Add the plugin into the Vite config:
+Add the plugin into the Rolldown config:
 
 ```ts
-import { defineConfig } from "vite";
+import { defineConfig } from "rolldown";
 import { copy } from "rolldown-plugin-copy";
 
 export default defineConfig({
