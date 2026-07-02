@@ -54,7 +54,7 @@ importers:
     devDependencies:
       vite-tsconfig-paths:
         specifier: ^6.1.1
-        version: 6.1.1(typescript@6.0.3)(vite@8.1.0(@types/node@25.6.0))
+        version: 6.1.1(typescript@6.0.3)(vite@8.1.2(@types/node@25.6.0))
 
   examples/glob:
     dependencies:
@@ -117,15 +117,15 @@ importers:
         specifier: ^4.62.2
         version: 4.62.2
       vite:
-        specifier: ^8.1.0
-        version: 8.1.0(@types/node@25.6.0)
+        specifier: ^8.1.2
+        version: 8.1.2(@types/node@25.6.0)
       vitest:
         specifier: catalog:dep
         version: 4.1.9(@types/node@25.6.0)
     devDependencies:
       vite-tsconfig-paths:
         specifier: ^6.1.1
-        version: 6.1.1(typescript@6.0.3)(vite@8.1.0(@types/node@25.6.0))
+        version: 6.1.1(typescript@6.0.3)(vite@8.1.2(@types/node@25.6.0))
 
 packages:
 
@@ -1246,6 +1246,10 @@ packages:
     resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
 
+  postcss@8.5.16:
+    resolution: {integrity: sha512-vuwillviilfKZsg0VGj5R/YwwcHx4SLsIOI/7K6mQkWx+l5cUHTjj5g0AasTBcyXsbfTgrwsUNmVUb5xVwyPwg==}
+    engines: {node: ^10 || ^12 || >=14}
+
   quansync@1.0.0:
     resolution: {integrity: sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA==}
 
@@ -1476,8 +1480,8 @@ packages:
       yaml:
         optional: true
 
-  vite@8.1.0:
-    resolution: {integrity: sha512-BuJcQK/56NQTWDGn4ABea3q4SSBdNPWwNZKTkkUpcMPnLoquSYH8llRtSUIgoL1KSCpHt5eghLShn50mH36y7Q==}
+  vite@8.1.2:
+    resolution: {integrity: sha512-6YYPbRXTxx6bRXmOn7XdnQAy5DQNHhDgtjhDHI13oe4pY93kkcdGJWxpGwOm++/Wh0QpQhDrpIoVMrmrsI5AGQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -2368,6 +2372,12 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
+  postcss@8.5.16:
+    dependencies:
+      nanoid: 3.3.15
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
+
   quansync@1.0.0: {}
 
   queue-microtask@1.2.3: {}
@@ -2600,12 +2610,12 @@ snapshots:
 
   universalify@0.1.2: {}
 
-  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@8.1.0(@types/node@25.6.0)):
+  vite-tsconfig-paths@6.1.1(typescript@6.0.3)(vite@8.1.2(@types/node@25.6.0)):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@6.0.3)
-      vite: 8.1.0(@types/node@25.6.0)
+      vite: 8.1.2(@types/node@25.6.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -2621,11 +2631,11 @@ snapshots:
       '@types/node': 25.6.0
       fsevents: 2.3.3
 
-  vite@8.1.0(@types/node@25.6.0):
+  vite@8.1.2(@types/node@25.6.0):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
-      postcss: 8.5.15
+      postcss: 8.5.16
       rolldown: 1.1.3
       tinyglobby: 0.2.17
     optionalDependencies:
