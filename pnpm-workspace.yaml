@@ -9,7 +9,7 @@ strictPeerDependencies: false
 
 catalogs:
     dep:
-        vitest: ^5.0.2
+        vitest: ^5.0.3
     dev:
         rolldown: 1.0.0
     peer:
