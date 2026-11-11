@@ -3,7 +3,7 @@
     "dependencies": {
         "rolldown": "catalog:dev",
         "rolldown-plugin-copy": "workspace:*",
-        "rollup": "^4.68.0",
+        "rollup": "^4.68.2",
         "vite": "^8.3.6",
         "vitest": "catalog:dep"
     },
